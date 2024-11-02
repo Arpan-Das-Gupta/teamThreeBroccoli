@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Found Item</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input:focus {
+    border-color: #28a745; 
+    outline: none;
+}
+
+button {
+    padding: 10px;
+    background-color: #28a745; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #218838; 
+}
+
+#lostItemsList {
+    margin-top: 20px;
+    width: 300px;
+}
+
+#lostItemsList div {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    </style>
+</head>
+<body>
+
+    <h1>Report a Found Item</h1>
+    <form id="foundForm">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required><br>
+
+        <label for="productType">Product Type:</label>
+        <input type="text" id="productType" required><br>
+
+        <button type="submit">Find Lost Items</button>
+    </form>
+
+    <div id="lostItemsList"></div>
+
+    <script>
+        document.getElementById('lostForm').onsubmit = function() {
+            window.location.href = 'found-item.html';
+        };
+        document.getElementById('foundForm').onsubmit = function(e) {
+            e.preventDefault();
+            const data = {
+                email: document.getElementById('email').value,
+                productType: document.getElementById('productType').value
+            };
+
+            fetch('getLostItems.php', { 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                const listDiv = document.getElementById('lostItemsList');
+                listDiv.innerHTML = '';
+
+                data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.innerHTML = `<p>${item.details}</p>
+                                    <button onclick="claimItem('${item.email}', '${item.productType}')">Found</button>`;
+                    listDiv.appendChild(div);
+                });
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        };
+
+        function claimItem(email, productType) {
+            fetch('claimFoundItem.php', { 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, productType })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Email sent to the lost item holder!');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+
+</body>
+</html>

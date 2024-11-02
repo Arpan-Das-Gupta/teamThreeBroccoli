@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Lost Item</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input:focus, textarea:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+button {
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+</head>
+<body>
+
+    <h1>Report a Lost Item</h1>
+    <form id="lostForm">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required><br>
+
+        <label for="productType">Product Type:</label>
+        <input type="text" id="productType" required><br>
+
+        <label for="date">Date Lost:</label>
+        <input type="date" id="date" required><br>
+
+        <label for="details">Details:</label>
+        <textarea id="details" required></textarea><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    
+    <script>
+        
+        document.getElementById('lostForm').onsubmit = function() {
+            window.location.href = 'lost-items.html';
+        };
+        document.getElementById('lostForm').onsubmit = function(e) {
+            e.preventDefault(); // Prevent form submission
+            const data = {
+                email: document.getElementById('email').value,
+                productType: document.getElementById('productType').value,
+                date: document.getElementById('date').value,
+                details: document.getElementById('details').value
+            };
+
+            fetch('saveLostItem.php', { // Replace with your server-side endpoint
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Lost item reported successfully!');
+                window.location.href = 'second.html'; // Redirect back
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        };
+    </script>
+
+</body>
+</html>

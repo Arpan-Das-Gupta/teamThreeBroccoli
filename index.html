@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .logo {
+            width: 200px;
+            margin-bottom: 40px;
+        }
+        .button {
+            width: 300px;
+            padding: 15px;
+            margin: 10px;
+            font-size: 18px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="/query/nitmlogo.jpeg" alt="Logo" class="logo">
+
+    <button class="button" id="lostFoundButton">Have you lost or found anything?</button>
+    <button class="button" id="paymentReceiptButton">Payment Receipts</button>
+
+    
+    <script>
+        document.getElementById('lostFoundButton').onclick = function() {
+            window.location.href = 'second.html';
+        };
+        document.getElementById('paymentReceiptButton').onclick = function() {
+            window.location.href = 'third.html';
+        };
+        
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost or Found</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .button-lost {
+            width: 300px;
+            padding: 15px;
+            margin: 10px;
+            font-size: 18px;
+            color: white;
+            background-color: #dc3545; 
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button-lost:hover {
+            background-color: #c82333; 
+        }
+        .button-found {
+            width: 300px;
+            padding: 15px;
+            margin: 10px;
+            font-size: 18px;
+            color: white;
+            background-color: #28a745; 
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button-found:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>What would you like to report?</h1>
+    <button class="button-lost" id="lostButton">Report Lost Items</button>
+    <button class="button-found" id="foundButton">Report Found Items</button>
+
+    <script>
+        document.getElementById('lostButton').onclick = function() {
+            window.location.href = 'reportLost.html';
+        };
+        document.getElementById('foundButton').onclick = function() {
+            window.location.href = 'reportFound.html';
+        };
+    </script>
+
+</body>
+</html>
